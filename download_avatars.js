@@ -3,6 +3,9 @@ var fs = require('fs');
 var GITHUB_USER = "drhaliburton";
 var GITHUB_TOKEN = "443fde915963471c5f9aee62762e491f955c670f";
 
+var repoOwner = process.argv[2];
+var repoName = process.argv[3];
+
 function printOutput (output) {
   console.log('Downloading...');
   for (var key in output) {
@@ -12,8 +15,8 @@ function printOutput (output) {
   }
 }
 
-function getRepoContributors(repoOwner, repoName, cb) {
-  var requestURL = 'https://' + GITHUB_USER + ":" + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
+function getRepoContributors(owner, name, cb) {
+  var requestURL = 'https://' + GITHUB_USER + ":" + GITHUB_TOKEN + '@api.github.com/repos/' + owner + '/' + name + '/contributors';
 
   var userInfo = {
     headers: {
@@ -43,4 +46,4 @@ function downloadImageByURL(url, filePath) {
          .pipe(fs.createWriteStream(fileName));
 }
 
-getRepoContributors('jquery', 'jquery', printOutput);
+getRepoContributors(repoOwner, repoName, printOutput);
