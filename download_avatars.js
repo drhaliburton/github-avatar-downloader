@@ -24,6 +24,12 @@ function getRepoContributors(owner, name, cb) {
     url: requestURL
   }
 
+  if (owner || name === undefined) {
+    console.log("Invalid entry.");
+    console.log("Valid inputs: node download_avatar.js <repoOwner> <repoName>");
+    return false;
+  }
+
   request.get(userInfo, function (err, response, body) {
     if (err) throw err;
     response.setEncoding('utf8');
