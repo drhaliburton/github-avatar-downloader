@@ -1,7 +1,5 @@
 var request = require('request');
 var fs = require('fs');
-var GITHUB_USER = 'drhaliburton';
-var GITHUB_TOKEN = '443fde915963471c5f9aee62762e491f955c670f';
 
 var repoOwner = process.argv[2];
 var repoName = process.argv[3];
