@@ -3,26 +3,38 @@ var GITHUB_TOKEN = "443fde915963471c5f9aee62762e491f955c670f";
 var request = require('request');
 
 
-function getRepoContributors(repoOwner, repoName, cb) {
-  var requestURL = 'https://' + GITHUB_USER + ":" + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
-  console.log(requestURL);
+function printOutput (output) {
+  console.log(output);
 }
 
-getRepoContributors("jquery", "jquery", function(err, result) {
-  console.log("Errors:", err);
-  console.log("Result:", result);
-});
+
+function getRepoContributors(repoOwner, repoName, cb) {
+  var requestURL = 'https://' + GITHUB_USER + ":" + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
+
+
+  var userInfo = {
+    headers: {
+    "User-Agent": "GitHub Avatar Downloader - Student Project" },
+    url: requestURL
+  }
+
+
+  request.get(userInfo, function (err, response, body) {
+    if (err) throw err;
+    response.setEncoding('utf8');
+
+    var bodyResult = "";
+    response.on('data', function (data) {
+        for (var i = 0; i < data.length; i++) {
+          bodyResult += data[i].body;
+        }
+      });
+    response.on('end', function() {
+      callback(dataResult);
+    });
+  });
+}
 
 
 
-// request.get('https://sytantris.github.io/http-examples')               // Note 1
-//        .on('error', function (err) {
-//          throw err;
-//        })
-//        .on('response', function (response) {
-//          console.log('Downloading...');
-//        })
-//        .pipe(fs.createWriteStream('./future.jpg'))
-//        .on('end', function() {
-//          console.log('Download Complete');
-//        });
+getRepoContributors('jquery', 'jquery', printOutput);
