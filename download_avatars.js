@@ -4,8 +4,11 @@ var GITHUB_USER = "drhaliburton";
 var GITHUB_TOKEN = "443fde915963471c5f9aee62762e491f955c670f";
 
 function printOutput (output) {
+  console.log('Downloading...');
   for (var key in output) {
-    console.log(output[key]['avatar_url']);
+    var avatarURL = output[key]['avatar_url'];
+    var newFileName = 'avatars/' + key + '.jpg';
+    downloadImageByURL(avatarURL, newFileName);
   }
 }
 
@@ -36,13 +39,8 @@ function downloadImageByURL(url, filePath) {
            throw err;
          })
          .on('response', function (response) {
-           console.log('Downloading...');
          })
          .pipe(fs.createWriteStream(fileName));
 }
-
-
-downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg")
-
 
 getRepoContributors('jquery', 'jquery', printOutput);
