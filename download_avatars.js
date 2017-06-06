@@ -1,11 +1,12 @@
 var request = require('request');
 var fs = require('fs');
-var GITHUB_USER = 'drhaliburton';
-var GITHUB_TOKEN = '443fde915963471c5f9aee62762e491f955c670f';
+var db = require('dotenv').config({path: '.env', encoding: 'utf8'});
+
+var GITHUB_USER = process.env.DB_USER;
+var GITHUB_TOKEN = process.env.DB_PASS;
 
 var repoOwner = process.argv[2];
 var repoName = process.argv[3];
-
 
 
 // takes in outputs from getRepoContributors and passes in as arguments to downloadImageByURL
