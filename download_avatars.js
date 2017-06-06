@@ -11,15 +11,15 @@ var repoName = process.argv[3];
 // takes in outputs from getRepoContributors and passes in as arguments to downloadImageByURL
 function getAvatarURL (output) {
     for (var key in output) {
-      if (output['message'] == 'Not Found') {
-        console.log("Invalid input. Please enter an existing <repoOwner> && <repoName>.");
-        return false;
-      }
+        if (output['message'] == 'Not Found') {
+            console.log('Invalid input. Please enter an existing <repoOwner> && <repoName>.');
+            return false;
+        }
         var avatarURL = output[key]['avatar_url'];
         var newFileName = 'avatars/' + key + '.jpg';
         downloadImageByURL(avatarURL, newFileName);
-        console.log('Downloading...');
     }
+    console.log('Downloading...');
 }
 
 // downloads image based off inputted url and filepath - called in getAvatarURL
